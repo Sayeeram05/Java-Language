@@ -49,7 +49,7 @@ public class LoginPage implements ActionListener{
         //---------------------------------------------------F R A M E--------------------------------------------------//
         // Defining frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // 
-        frame.setSize(new Dimension(850,550));  // frame size
+        frame.setSize(new Dimension(850,500));  // frame size
         frame.setLocationRelativeTo(null);  // display frame in center of screen
         frame.setIconImage(AppIcon.getImage());
         frame.setLayout(new BorderLayout());
@@ -69,7 +69,7 @@ public class LoginPage implements ActionListener{
         JLabel WelcomeLabel = new JLabel("WELCOME");
 
         // Defining right_Panel
-        right_Panel.setPreferredSize(new Dimension(400, 600));
+        right_Panel.setPreferredSize(new Dimension(400, 500));
         right_Panel.setBackground(Color.WHITE);
         right_Panel.setLayout(null);
 
@@ -130,7 +130,7 @@ public class LoginPage implements ActionListener{
         // store resized image to Imageicon
         ImageIcon finalimage = new ImageIcon(resizeimage);
         loginimage_label.setIcon(finalimage);
-        loginimage_label.setBounds(0, 90, 350 , 450);
+        loginimage_label.setBounds(0, 80, 350 , 450);
 
         // Defining WelcomeLabel
         WelcomeLabel.setFont(new Font("Roboto", Font.BOLD, 40));
@@ -164,14 +164,14 @@ public class LoginPage implements ActionListener{
 
 
         // Defining leftpanel
-        left_panel.setPreferredSize(new Dimension(450, 600));  // use preferdsize for panel
+        left_panel.setPreferredSize(new Dimension(450, 500));  // use preferdsize for panel
         left_panel.setBackground(new Color(6, 143, 255));
         left_panel.setLayout(null); // no layout
 
         // Defining label
         login_label.setFont(new Font("Roboto", Font.PLAIN, 40)); // Modify fonts
         login_label.setForeground(Color.WHITE); // Font color
-        login_label.setBounds(160, 65, 150, 40); // position of label(null Layout)
+        login_label.setBounds(160, 50, 150, 40); // position of label(null Layout)
 
         // Defining usernamelabel
         usernamelabel.setFont(new Font("Roboto", Font.PLAIN, 18)); 
@@ -225,9 +225,9 @@ public class LoginPage implements ActionListener{
 
         // Defining login_button
         login_button.setText("NEXT");
-        login_button.setFont(new Font("Roboto", Font.BOLD, 33));
+        login_button.setFont(new Font("Roboto", Font.BOLD, 25));
         login_button.setForeground(new Color(6, 143, 255));
-        login_button.setBounds(50, 400, 340, 50);
+        login_button.setBounds(50, 400, 340, 35);
         login_button.setBorder(null);
         login_button.setFocusable(false); // Inside button, box around the text
         login_button.addActionListener(this);
