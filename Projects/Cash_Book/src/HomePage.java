@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +16,9 @@ public class HomePage {
     JLabel logout = new JLabel("Logout");
     JPanel rightpanel = new JPanel();
     GradientPanel leftPanel = new GradientPanel(Color.decode("#004FF9"),Color.decode("#56CCF2"),0);
-
+    CashInPanel Cash_In = new CashInPanel();
+    JLabel Context_Heading = new JLabel("Home Table"); 
+    JPanel Content_Panel = new JPanel();
     //-----------------------------------------------C  O   N   S   T   R   U   C   T   O   R----------------------------------------------//
 
     public HomePage() {
@@ -52,9 +55,7 @@ public class HomePage {
         JLabel Transaction_icon = new JLabel();
         JLabel Transaction_label = new JLabel("HISTORY ");
 
-
-
-        JPanel Content_Panel = new JPanel();
+        
 
         // Defining right_Panel
         rightpanel.setPreferredSize(new Dimension(1500, 1000));
@@ -134,6 +135,16 @@ public class HomePage {
         Cash_In_label.setForeground(new Color(240, 240, 240));
         Cash_In_label.setBounds(25, 50, 200, 30);
 
+        // After Clicked Cash  In
+        Cash_In_Panel.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                CashInclicked(e);
+            }
+        });
+
 
         Cash_In_Panel.add(Cash_In_icon);
         Cash_In_Panel.add(Cash_In_label);
@@ -174,25 +185,69 @@ public class HomePage {
 
         //----------------------------------------------C O N T E N T P A N E L---------------------------------------------//
 
-        Content_Panel.setBounds(20, 400, 1462, 550);
+        // Content Panel Heading
+        Context_Heading.setFont(new Font("Roboto", Font.BOLD, 35));
+        Context_Heading.setForeground(new Color(6, 143, 255));
+        Context_Heading.setBounds(30, 400, 200, 40);
+        
+
+        Content_Panel.setBounds(30, 460, 1440, 505);
         Content_Panel.setBackground(new Color(240, 240, 240));//  new Color(206, 230, 243)
         Content_Panel.setLayout(null);
+        Content_Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
         // Adding defined components to the RightPanel
         rightpanel.add(TitleBar);
         rightpanel.add(Button_Panel);
+        rightpanel.add(Context_Heading);
         rightpanel.add(Content_Panel);
+        rightpanel.add(Cash_In);
 
 
         //----------------------------------------------L E F T P A N E L---------------------------------------------//
 
-        
+        // Initilize components used in Left Panel
+    
+
+        // Defining Left Panel
         leftPanel.setPreferredSize(new Dimension(300, 1000));
         leftPanel.setBounds(0, 0, 300, 1000);
         leftPanel.setLayout(null);
 
-        
 
+        // Defining logout
+        logout.setIcon(new ImageIcon("lib\\images\\logout.png"));
+        logout.setFont(new Font("Roboto", Font.BOLD, 25));
+        logout.setBounds(10, 933, 280,50);
+        logout.setForeground(new Color(240, 240, 240));
+        logout.setHorizontalTextPosition(JLabel.RIGHT);
+        logout.setVerticalTextPosition(JLabel.CENTER);
+        logout.setIconTextGap(15);
+        
+        logout.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                logoutclicked(e);
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e)
+            {
+                logoutentered(e);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e)
+            {
+                logoutexited(e);
+            }
+        });
+
+        
+        // Adding defined components to the Left Panel
+        leftPanel.add(logout);
 
         // Adding defined components to the Frame
         frame.add(rightpanel);
@@ -204,8 +259,9 @@ public class HomePage {
 
 
 
-    //--------------------------------------------A C T I O N L I S T E N E R-------------------------------------------//
+    //--------------------------------------------M O U S E L I S T E N E R-------------------------------------------//
 
+    // Close
     public void closeclicked(java.awt.event.MouseEvent e)
     {
         frame.dispose();
@@ -220,6 +276,34 @@ public class HomePage {
         close.setForeground(Color.RED);
         close.setBackground(Color.WHITE);
     }
+
+    // Logout
+    public void logoutclicked(java.awt.event.MouseEvent e)
+    {
+        logout.setForeground(Color.BLACK);
+        this.frame.dispose();
+        new LoginPage();
+    }
+    public void logoutentered(java.awt.event.MouseEvent e)
+    {
+        
+        logout.setBorder(BorderFactory.createRaisedBevelBorder());
+    }
+    public void logoutexited(java.awt.event.MouseEvent e)
+    {
+        logout.setForeground(new Color(240,240,240));
+        logout.setBorder(null);
+    }
+
+    // Cash In
+    public void CashInclicked(java.awt.event.MouseEvent e)
+    {
+        Context_Heading.setText("CASH IN");
+        // Content Panels
+        Content_Panel.setVisible(false);
+        Cash_In.setVisible(true);
+    }
+
 
 
 
