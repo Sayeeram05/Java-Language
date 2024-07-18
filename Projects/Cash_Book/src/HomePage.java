@@ -27,7 +27,7 @@ public class HomePage {
     GradientPanel Cash_Out_Panel = new GradientPanel(Color.decode("#0c0014"), Color.decode("#0779E4"), 50);
     GradientPanel Transaction_Panel = new GradientPanel(Color.decode("#1A2980"), Color.decode("#26D0CE"), 50);
     JLabel Button_Panel_Title = new JLabel();
-    //-----------------------------------------------C  O   N   S   T   R   U   C   T   O   R----------------------------------------------//
+    //-----------------------------------------------C O N S T R U C T O R----------------------------------------------//
 
     public HomePage() {
 
@@ -273,7 +273,6 @@ public class HomePage {
         home.setIcon(new ImageIcon("lib\\images\\Home.png"));
         home.setFont(new Font("Roboto", Font.BOLD, 25));
         home.setBounds(10, 117, 280,50);
-        home.setForeground(new Color(240, 240, 240));
         home.setHorizontalTextPosition(JLabel.RIGHT);
         home.setVerticalTextPosition(JLabel.CENTER);
         home.setIconTextGap(19);
