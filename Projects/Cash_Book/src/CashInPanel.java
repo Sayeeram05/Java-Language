@@ -17,6 +17,12 @@ public class CashInPanel extends JPanel implements ActionListener{
     GradientButton CategoryButton = new GradientButton(Color.decode("#283048"), Color.decode("#859398"));
 
     JPanel HeadingPanel = new JPanel();
+
+    JTextField InAmountValue = new JTextField();
+    JTextField InCategoryValue = new JTextField();
+    LocalDate Today = LocalDate.now();
+    JLabel TodaysDateValue = new JLabel(Today.toString());
+    JTextField RemarkValue = new JTextField();
     
     public CashInPanel() {
 
@@ -90,13 +96,11 @@ public class CashInPanel extends JPanel implements ActionListener{
 
         //----------------------------------------------D E T A I L S---------------------------------------------//
 
-        JLabel InAmountLabel = new JLabel("IN AMOUNT");
-        JTextField InAmountValue = new JTextField();
+        JLabel InAmountLabel = new JLabel("IN AMOUNT"); 
         JLabel InCategoryLabel = new JLabel("IN CATEGORY");
-        JTextField InCategoryValue = new JTextField();
         JLabel TodaysDateLabel = new JLabel("TODAY");
-        LocalDate Today = LocalDate.now();
-        JLabel TodaysDateValue = new JLabel(" "+Today.toString());
+        JLabel RemarkLabel = new JLabel("Remark");
+        
 
 
         // In Amount Label
@@ -110,12 +114,12 @@ public class CashInPanel extends JPanel implements ActionListener{
         InAmountValue.setFont(new Font("Roboto", Font.BOLD, 30));
         InAmountValue.setForeground(Color.decode("#004FF9"));
 
-        // In Amount Label
+        // In Category Label
         InCategoryLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
         InCategoryLabel.setForeground(Color.BLACK);
         InCategoryLabel.setBounds(800, 120, 250, 30); 
 
-        // In Amount Value
+        // In Category Value
         InCategoryValue.setBounds(800, 150, 450, 45);
         InCategoryValue.setBorder(BorderFactory.createLoweredBevelBorder());
         InCategoryValue.setFont(new Font("Roboto", Font.BOLD, 30));
@@ -134,6 +138,19 @@ public class CashInPanel extends JPanel implements ActionListener{
         TodaysDateValue.setOpaque(true);
         TodaysDateValue.setBackground(Color.WHITE);
 
+        // Remark Label
+        RemarkLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
+        RemarkLabel.setForeground(Color.BLACK);
+        RemarkLabel.setBounds(800, 230, 250, 30); 
+
+        // Remark Value
+        RemarkValue.setBounds(800, 260, 450, 45);
+        RemarkValue.setBorder(BorderFactory.createLoweredBevelBorder());
+        RemarkValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        RemarkValue.setForeground(Color.decode("#004FF9"));
+
+        
+
 
         // Adding Elemets In The Panel
         add(SaveButton);
@@ -145,13 +162,25 @@ public class CashInPanel extends JPanel implements ActionListener{
         add(InCategoryValue);
         add(TodaysDateLabel);
         add(TodaysDateValue);
+        add(RemarkLabel);
+        add(RemarkValue);
 
     }
 
-
-
+    //--------------------------------------------A C T I O N L I S T E N E R-------------------------------------------//
+    
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == SaveButton){
+            String InAmount = InAmountValue.getText();
+            String InCategory = InCategoryValue.getText();
+            String Date = TodaysDateValue.getText();
+            String Remark =  RemarkValue.getText();
+            System.out.println(InAmount + InCategory + Date +Remark);
+        }
+        if(e.getSource() == CategoryButton){
+
+        }
     }
 
 
