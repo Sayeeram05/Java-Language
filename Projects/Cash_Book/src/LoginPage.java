@@ -383,7 +383,7 @@ public class LoginPage implements ActionListener{
                 messagebox("LOGIN", "You are Logined as Admin");
             }
             else{
-                messagebox("LOGIN", "Invalid Username or password or privilege");
+                messagebox("LOGIN", "Invalid Username or password");
             }
 
         }
