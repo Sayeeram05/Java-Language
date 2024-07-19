@@ -18,6 +18,7 @@ public class HomePage {
     JPanel rightpanel = new JPanel();
     GradientPanel leftPanel = new GradientPanel(Color.decode("#004FF9"),Color.decode("#56CCF2"),0);
     CashInPanel Cash_In = new CashInPanel();
+    CashOutPanel Cash_Out = new CashOutPanel();
     JLabel Context_Heading = new JLabel("Home Table"); 
     JPanel Content_Panel = new JPanel();
     JLabel home = new JLabel("Home");
@@ -161,7 +162,16 @@ public class HomePage {
         Cash_Out_label.setFont(new Font("Roboto", Font.BOLD, 30));
         Cash_Out_label.setForeground(new Color(240, 240, 240));
         Cash_Out_label.setBounds(25, 50, 200, 30);
-
+        
+        // After Clicked Cash Out
+        Cash_Out_Panel.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                CashOutclicked(e);
+            }
+        });
 
         Cash_Out_Panel.add(Cash_Out_icon);
         Cash_Out_Panel.add(Cash_Out_label);
@@ -206,6 +216,7 @@ public class HomePage {
         rightpanel.add(Context_Heading);
         rightpanel.add(Content_Panel);
         rightpanel.add(Cash_In);
+        rightpanel.add(Cash_Out);
 
 
         //----------------------------------------------L E F T P A N E L---------------------------------------------//
@@ -390,7 +401,19 @@ public class HomePage {
 
         Content_Panel.setVisible(false);
         Cash_In.setVisible(true);
+        Cash_Out.setVisible(false);
     }
+
+    // Cash Out
+    public void CashOutclicked(java.awt.event.MouseEvent e)
+    {
+        Context_Heading.setText("CASH OUT");
+
+        Content_Panel.setVisible(false);
+        Cash_In.setVisible(false);
+        Cash_Out.setVisible(true);
+    }
+
 
     // Home
     public void homeclicked(java.awt.event.MouseEvent e)

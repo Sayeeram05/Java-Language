@@ -9,7 +9,7 @@ public class DataBase {
     // Database connection details
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/cashbook";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "741802229";
+    private static final String JDBC_PASSWORD = "7418022289";
 
     public static void main(String[] args) {
         if (isValidUser("Admin", "Admin@123")) {
@@ -19,19 +19,23 @@ public class DataBase {
         }
     }
 
-    public static boolean isValidUser(String username, String password) {
+    public static boolean isValidUser(String UserName,String password){
+
         String query = "SELECT * FROM login WHERE username = ? AND password = ?";
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-             
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try(Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+            PreparedStatement statement = con.prepareStatement(query)){
 
-            return resultSet.next();
-        } catch (SQLException ex) {
-            System.out.println(ex);
+                statement.setString(1, UserName);
+                statement.setString(2, password);
+
+                ResultSet result = statement.executeQuery();
+
+                // System.out.println(result.next());
+
+                return result.next();
+        }catch(SQLException exp){
+            System.out.println(exp);
             return false;
         }
     }

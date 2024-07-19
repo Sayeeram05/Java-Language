@@ -96,7 +96,7 @@ public class CashInPanel extends JPanel implements ActionListener{
 
         //----------------------------------------------D E T A I L S---------------------------------------------//
 
-        JLabel InAmountLabel = new JLabel("IN AMOUNT"); 
+        JLabel InAmountLabel = new JLabel("CASH IN"); 
         JLabel InCategoryLabel = new JLabel("IN CATEGORY");
         JLabel TodaysDateLabel = new JLabel("TODAY");
         JLabel RemarkLabel = new JLabel("Remark");
