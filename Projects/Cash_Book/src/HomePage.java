@@ -24,10 +24,12 @@ public class HomePage {
     JLabel home = new JLabel("Home");
     JLabel Category = new JLabel("Category");
     JPanel Button_Panel = new JPanel();
-    GradientPanel Cash_In_Panel = new GradientPanel(Color.decode("#000000"), Color.decode("#004ff9"), 50);
-    GradientPanel Cash_Out_Panel = new GradientPanel(Color.decode("#0c0014"), Color.decode("#0779E4"), 50);
-    GradientPanel Transaction_Panel = new GradientPanel(Color.decode("#1A2980"), Color.decode("#26D0CE"), 50);
+    GradientPanel Cash_In_Panel = new GradientPanel(Color.decode("#000000"), Color.decode("#004ff9"), 75);
+    GradientPanel Cash_Out_Panel = new GradientPanel(Color.decode("#0c0014"), Color.decode("#0779E4"), 75);
+    GradientPanel Transaction_Panel = new GradientPanel(Color.decode("#1A2980"), Color.decode("#26D0CE"), 75);
     JLabel Button_Panel_Title = new JLabel();
+
+    Category CategoryPanel = new Category();
     //-----------------------------------------------C O N S T R U C T O R----------------------------------------------//
 
     public HomePage() {
@@ -154,7 +156,7 @@ public class HomePage {
         Cash_In_Panel.add(Cash_In_icon);
         Cash_In_Panel.add(Cash_In_label);
 
-        Cash_Out_Panel.setBounds(525, 30, 400, 200);
+        Cash_Out_Panel.setBounds(530, 30, 400, 200);
         Cash_Out_Panel.setLayout(null);
         Cash_Out_icon.setIcon(new ImageIcon("lib\\images\\MinusIcon.png"));
         Cash_Out_icon.setBounds(245, 50, 100, 100);
@@ -209,14 +211,19 @@ public class HomePage {
         Content_Panel.setLayout(null);
         Content_Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
+        // Adding defined components to the ContentPanel
+        Content_Panel.add(Cash_In);
+        Content_Panel.add(Cash_Out);
+
+
+
         // Adding defined components to the RightPanel
         rightpanel.add(TitleBar);
         rightpanel.add(Button_Panel_Title);
         rightpanel.add(Button_Panel);
         rightpanel.add(Context_Heading);
         rightpanel.add(Content_Panel);
-        rightpanel.add(Cash_In);
-        rightpanel.add(Cash_Out);
+        rightpanel.add(CategoryPanel);
 
 
         //----------------------------------------------L E F T P A N E L---------------------------------------------//
@@ -399,7 +406,6 @@ public class HomePage {
     {
         Context_Heading.setText("CASH IN");
 
-        Content_Panel.setVisible(false);
         Cash_In.setVisible(true);
         Cash_Out.setVisible(false);
     }
@@ -409,7 +415,7 @@ public class HomePage {
     {
         Context_Heading.setText("CASH OUT");
 
-        Content_Panel.setVisible(false);
+
         Cash_In.setVisible(false);
         Cash_Out.setVisible(true);
     }
@@ -424,10 +430,11 @@ public class HomePage {
         home.setForeground(Color.BLACK);
         VisibilityHome(true);
 
-
-
-        Content_Panel.setVisible(true);
         Cash_In.setVisible(false);
+        Cash_Out.setVisible(false);
+
+        CategoryPanel.VisibilityCategoty(false);
+        
 
     }
     public void homeentered(java.awt.event.MouseEvent e)
@@ -444,6 +451,10 @@ public class HomePage {
     {
         VisibilityHome(false);
         Button_Panel_Title.setText("Category");
+
+        CategoryPanel.setVisible(true);
+
+        CategoryPanel.VisibilityCategoty(true);
     }
     public void Categoryentered(java.awt.event.MouseEvent e)
     {
@@ -464,6 +475,7 @@ public class HomePage {
         Context_Heading.setVisible(Visibile);
         Content_Panel.setVisible(Visibile);
         Cash_In.setVisible(Visibile);
+        Cash_Out.setVisible(Visibile);
         Cash_In_Panel.setVisible(Visibile);
         Cash_Out_Panel.setVisible(Visibile);
         Transaction_Panel.setVisible(Visibile);
