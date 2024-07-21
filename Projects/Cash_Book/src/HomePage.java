@@ -386,7 +386,10 @@ public class HomePage {
     // Logout
     public void logoutclicked(java.awt.event.MouseEvent e)
     {
+        home.setForeground(new Color(240, 240, 240));
+        Category.setForeground(new Color(240, 240, 240));
         logout.setForeground(Color.BLACK);
+        
         this.frame.dispose();
         new LoginPage();
     }
@@ -425,9 +428,11 @@ public class HomePage {
     public void homeclicked(java.awt.event.MouseEvent e)
     {
         Context_Heading.setText("Home Table");
-        Button_Panel_Title.setText("Home");
-        logout.setForeground(new Color(240, 240, 240));
+
         home.setForeground(Color.BLACK);
+        Category.setForeground(new Color(240, 240, 240));
+        logout.setForeground(new Color(240, 240, 240));
+
         VisibilityHome(true);
 
         Cash_In.setVisible(false);
@@ -449,11 +454,14 @@ public class HomePage {
     // Category
     public void Categoryclicked(java.awt.event.MouseEvent e)
     {
+        
+        home.setForeground(new Color(240, 240, 240));
+        Category.setForeground(Color.BLACK);
+        logout.setForeground(new Color(240, 240, 240));
+
         VisibilityHome(false);
-        Button_Panel_Title.setText("Category");
 
         CategoryPanel.setVisible(true);
-
         CategoryPanel.VisibilityCategoty(true);
     }
     public void Categoryentered(java.awt.event.MouseEvent e)
@@ -479,6 +487,7 @@ public class HomePage {
         Cash_In_Panel.setVisible(Visibile);
         Cash_Out_Panel.setVisible(Visibile);
         Transaction_Panel.setVisible(Visibile);
+        Button_Panel_Title.setVisible(Visibile);
 
     }
 

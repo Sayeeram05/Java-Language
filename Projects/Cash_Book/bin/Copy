@@ -1,5 +1,5 @@
-GradientPanel Transaction_Panel = new GradientPanel(Color.decode("#000000"), Color.decode("#004ff9"), 50);
-JLabel Transaction_icon = new JLabel();
-JLabel Transaction_label = new JLabel("TRNSACTION ");
+
+
+
 
 
