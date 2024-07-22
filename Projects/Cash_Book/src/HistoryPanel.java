@@ -13,6 +13,7 @@ public class HistoryPanel extends JPanel{
         setLayout(null);
         setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
         setVisible(false);
+        
     }
 
 

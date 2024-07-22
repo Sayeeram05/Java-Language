@@ -19,6 +19,7 @@ public class HomePage {
     GradientPanel leftPanel = new GradientPanel(Color.decode("#004FF9"),Color.decode("#56CCF2"),0);
     CashInPanel Cash_In = new CashInPanel();
     CashOutPanel Cash_Out = new CashOutPanel();
+    HistoryPanel History = new HistoryPanel();
     JLabel Context_Heading = new JLabel("Home Table"); 
     JPanel Content_Panel = new JPanel();
     JLabel home = new JLabel("Home");
@@ -187,6 +188,16 @@ public class HomePage {
         Transaction_label.setFont(new Font("Roboto", Font.BOLD, 30));
         Transaction_label.setForeground(new Color(240, 240, 240));
         Transaction_label.setBounds(25, 50, 225, 30);
+
+        // After Clicked History
+        Transaction_Panel.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                Historyclicked(e);
+            }
+        });
 
 
         Transaction_Panel.add(Transaction_icon);
@@ -383,6 +394,7 @@ public class HomePage {
         close.setBackground(Color.WHITE);
     }
 
+
     // Logout
     public void logoutclicked(java.awt.event.MouseEvent e)
     {
@@ -404,6 +416,7 @@ public class HomePage {
         logout.setBorder(null);
     }
 
+
     // Cash In
     public void CashInclicked(java.awt.event.MouseEvent e)
     {
@@ -411,7 +424,9 @@ public class HomePage {
 
         Cash_In.setVisible(true);
         Cash_Out.setVisible(false);
+        History.setVisible(false);
     }
+
 
     // Cash Out
     public void CashOutclicked(java.awt.event.MouseEvent e)
@@ -421,6 +436,19 @@ public class HomePage {
 
         Cash_In.setVisible(false);
         Cash_Out.setVisible(true);
+        History.setVisible(false);
+    }
+
+
+    // History
+    public void Historyclicked(java.awt.event.MouseEvent e)
+    {
+        Context_Heading.setText("HISTORY");
+
+
+        Cash_In.setVisible(false);
+        Cash_Out.setVisible(false);
+        History.setVisible(true);
     }
 
 
@@ -463,6 +491,10 @@ public class HomePage {
 
         CategoryPanel.setVisible(true);
         CategoryPanel.VisibilityCategoty(true);
+
+        CategoryPanel.CategoryDataPanel.setVisible(false);
+        CategoryPanel.Context_Heading.setText("CATEGORY");
+
     }
     public void Categoryentered(java.awt.event.MouseEvent e)
     {

@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class Category extends JPanel {
+public class Category extends JPanel implements ActionListener{
 
     //-----------------------------------------------G L O B A L----------------------------------------------//
 
@@ -14,6 +17,11 @@ public class Category extends JPanel {
     JLabel Context_Heading = new JLabel("CATEGORY"); 
     JLabel CashInTitle = new JLabel(" CASH IN ");
     JLabel CashOutTitle = new JLabel(" CASH OUT ");
+
+    JTextField DataValue = new JTextField();
+    GradientButton DataButton = new GradientButton(Color.decode("#283048"), Color.decode("#859398"));
+
+    JPanel CategoryDataPanel = new JPanel();
     
     public Category(){
 
@@ -76,8 +84,8 @@ public class Category extends JPanel {
         CashInAddLabel.setForeground(new Color(240, 240, 240));
         CashInAddLabel.setBounds(25, 40, 200, 30);
 
-        // After Clicked Cash  In
-        CashInPanel.addMouseListener(new java.awt.event.MouseAdapter() 
+        // After Clicked Cash In Add
+        CashInAddPanel.addMouseListener(new java.awt.event.MouseAdapter() 
         {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e)
@@ -100,8 +108,8 @@ public class Category extends JPanel {
         CashInRemoveLabel.setForeground(new Color(240, 240, 240));
         CashInRemoveLabel.setBounds(25, 40, 200, 30);
 
-        // After Clicked Cash  In
-        CashInPanel.addMouseListener(new java.awt.event.MouseAdapter() 
+        // After Clicked Cash In Remove
+        CashInRemovePanel.addMouseListener(new java.awt.event.MouseAdapter() 
         {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e)
@@ -144,8 +152,8 @@ public class Category extends JPanel {
         CashOutAddLabel.setForeground(new Color(240, 240, 240));
         CashOutAddLabel.setBounds(25, 40, 200, 30);
 
-        // After Clicked Cash Out
-        CashInPanel.addMouseListener(new java.awt.event.MouseAdapter() 
+        // After Clicked Cash Out Add
+        CashOutAddPanel.addMouseListener(new java.awt.event.MouseAdapter() 
         {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e)
@@ -169,8 +177,8 @@ public class Category extends JPanel {
         CashOutRemoveLabel.setForeground(new Color(240, 240, 240));
         CashOutRemoveLabel.setBounds(25, 40, 200, 30);
 
-        // After Clicked Cash Out
-        CashInPanel.addMouseListener(new java.awt.event.MouseAdapter() 
+        // After Clicked Cash Out Remove
+        CashOutRemovePanel.addMouseListener(new java.awt.event.MouseAdapter() 
         {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e)
@@ -196,11 +204,14 @@ public class Category extends JPanel {
 
 
         //----------------------------------------------C O N T E N T P A N E L---------------------------------------------//
+        // Initilizing Components
+        JLabel DataLabel = new JLabel("CATEGORY");
+
 
         // Content Panel Heading
         Context_Heading.setFont(new Font("Roboto", Font.BOLD, 35));
         Context_Heading.setForeground(new Color(6, 143, 255));
-        Context_Heading.setBounds(0, 320, 200, 40);
+        Context_Heading.setBounds(0, 320, 500, 40);
 
         // Content Panel
         Content_Panel.setBounds(0, 380, 1440, 505);
@@ -209,6 +220,43 @@ public class Category extends JPanel {
         Content_Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         Content_Panel.setVisible(false);
 
+        //----------------------------------------------C A S H I N---------------------------------------------//
+
+        // Defining Category Data Panel
+        CategoryDataPanel.setBounds(0,0,1440, 75);
+        CategoryDataPanel.setBackground(Color.decode("#0779E4"));// new Color(240, 240, 240) new Color(206 , 230, 243)
+        CategoryDataPanel.setLayout(null);
+        CategoryDataPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        CategoryDataPanel.setVisible(false);
+
+        // Data Label
+        DataLabel.setFont(new Font("Roboto", Font.BOLD, 30));
+        DataLabel.setBounds(250, 12, 220,50);
+        DataLabel.setForeground(Color.BLACK);
+
+        // Data Value
+        DataValue.setBounds(450, 15, 500, 45);
+        DataValue.setBorder(BorderFactory.createLoweredBevelBorder());
+        DataValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        DataValue.setForeground(Color.decode("#004FF9"));
+
+        // Data Button
+        DataButton.setBounds(1000, 15, 250, 45);
+        DataButton.setBorder(BorderFactory.createEmptyBorder());
+        DataButton.setText("CATEGORY");
+        DataButton.setFont(new Font("Roboto", Font.BOLD, 30));
+        DataButton.setForeground(new Color(240, 240, 240));
+        DataButton.setFocusable(false);
+        DataButton.addActionListener(this);
+        
+
+        // Adding Components in Category Data Panel
+        CategoryDataPanel.add(DataLabel);
+        CategoryDataPanel.add(DataValue);
+        CategoryDataPanel.add(DataButton);
+
+        // Adding Compnents in Content Panel
+        Content_Panel.add(CategoryDataPanel);
 
         // Adding Defined Components to the Category Panel
         add(CashInTitle);
@@ -226,23 +274,58 @@ public class Category extends JPanel {
     // Cash In Add
     public void CashInAddclicked(java.awt.event.MouseEvent e)
     {
+        Context_Heading.setText("CASH IN - ADD");
+        DataButton.setText("ADD");
+
+        CategoryDataPanel.setVisible(true);
 
     }
     // Cash In Remove
     public void CashInRemoveclicked(java.awt.event.MouseEvent e)
     {
+        Context_Heading.setText("CASH IN - REMOVE");
+        DataButton.setText("REMOVE");
+
+        CategoryDataPanel.setVisible(true);
+
 
     }
 
-    // Cash In Add
+    // Cash Out Add
     public void CashOutAddclicked(java.awt.event.MouseEvent e)
     {
+        Context_Heading.setText("CASH OUT - ADD");
+        DataButton.setText("ADD");
 
+        CategoryDataPanel.setVisible(true);
     }
-    // Cash In Remove
+    // Cash Out Remove
     public void CashOutRemoveclicked(java.awt.event.MouseEvent e)
     {
+        Context_Heading.setText("CASH OUT - REMOVE");
+        DataButton.setText("REMOVE");
 
+        CategoryDataPanel.setVisible(true);
+    }
+
+    //--------------------------------------------A C T I O N L I S T E N E R-------------------------------------------//
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == DataButton){
+            String ButtonName = Context_Heading.getText();
+            if(ButtonName.equals("CASH IN - ADD")){
+                System.out.println("CASH IN - ADD");
+            }
+            else if (ButtonName.equals("CASH IN - REMOVE")) {
+                System.out.println("CASH IN - REMOVE");
+            }
+            else if (ButtonName.equals("CASH OUT - ADD")) {
+                System.out.println("CASH OUT - ADD");
+            }else if (ButtonName.equals("CASH OUT - REMOVE")) {
+                System.out.println("CASH OUT - REMOVE");
+            }
+        }
     }
 
 
@@ -259,5 +342,10 @@ public class Category extends JPanel {
         CashInTitle.setVisible(Visibile);
         CashOutTitle.setVisible(Visibile);
 
+    }
+
+
+    public void VisibilityDataPanel(boolean Visibile){
+    
     }
 }
