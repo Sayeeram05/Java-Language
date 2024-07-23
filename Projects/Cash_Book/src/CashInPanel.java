@@ -2,8 +2,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -13,16 +20,25 @@ public class CashInPanel extends JPanel implements ActionListener{
 
     //-----------------------------------------------G L O B A L----------------------------------------------//
 
+    private static final String URL = "jdbc:mysql://localhost:3306/cashbook";
+    private static final String USER = "root";
+    private static final String PASSWORD = "7418022289";
+
     GradientButton SaveButton = new GradientButton(Color.decode("#004FF9"), Color.decode("#56CCF2"));
     GradientButton CategoryButton = new GradientButton(Color.decode("#283048"), Color.decode("#859398"));
 
     JPanel HeadingPanel = new JPanel();
 
     JTextField InAmountValue = new JTextField();
-    JTextField InCategoryValue = new JTextField();
+    // JTextField InCategoryValue = new JTextField();
     LocalDate Today = LocalDate.now();
     JLabel TodaysDateValue = new JLabel(Today.toString());
     JTextField RemarkValue = new JTextField();
+
+    // List<String> InCategoryList = new ArrayList<>();
+    JComboBox<String> InCategoryValue = new JComboBox<>();
+
+    
     
     public CashInPanel() {
 
@@ -123,7 +139,12 @@ public class CashInPanel extends JPanel implements ActionListener{
         InCategoryValue.setBounds(800, 150, 450, 45);
         InCategoryValue.setBorder(BorderFactory.createLoweredBevelBorder());
         InCategoryValue.setFont(new Font("Roboto", Font.BOLD, 30));
-        InCategoryValue.setForeground(Color.decode("#004FF9"));
+        InCategoryValue.setForeground(Color.BLUE);
+        InCategoryValue.setBackground(Color.WHITE);
+        InCategoryValue.setFocusable(false); 
+        CashInCombobox();
+        
+        
 
         // Today's Date Label
         TodaysDateLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
@@ -172,16 +193,69 @@ public class CashInPanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == SaveButton){
-            String InAmount = InAmountValue.getText();
-            String InCategory = InCategoryValue.getText();
-            String Date = TodaysDateValue.getText();
-            String Remark =  RemarkValue.getText();
-            System.out.println(InAmount + InCategory + Date +Remark);
+            try {
+                int InAmount = Integer.parseInt(InAmountValue.getText());
+                String InCategory = (String)InCategoryValue.getSelectedItem();
+                String Date = TodaysDateValue.getText();
+                String Remark =  RemarkValue.getText();
+                System.out.println(InAmount + InCategory + Date +Remark);
+
+                String Query = "INSERT INTO cashin (Income, InCategory, Date, Remark) VALUES (?,?,?,?);";
+                if(InAmount > 1){
+                    try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
+                        PreparedStatement Statemet = Connect.prepareCall(Query)){
+
+                            Statemet.setInt(1, InAmount);
+                            Statemet.setString(2, InCategory);
+                            Statemet.setString(3, Date);
+                            Statemet.setString(4, Remark);
+
+                        Statemet.executeUpdate();  
+                    }catch(SQLException exception){
+                        System.err.println(exception);
+                    }
+                }
+                else{
+                    new MessageBox("CASH IN", "INVALID AMOUNT(MIN - RS.1)");
+                }
+
+            }catch(NumberFormatException ex) {
+                System.out.println(ex);
+                new MessageBox("CASH IN", "PLEASE ENTER CORRECT AMOUNT");
+            }
+
+            InAmountValue.setText("");
+            InCategoryValue.setSelectedIndex(0);
+            RemarkValue.setText("");
+            
         }
         if(e.getSource() == CategoryButton){
 
         }
     }
+
+
+    //--------------------------------------------F U N C T I O N-------------------------------------------//
+
+    public void CashInCombobox(){
+        InCategoryValue.removeAllItems();
+
+        String Query = "SELECT category FROM incategory";
+        try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement st = Connect.createStatement()){
+
+            ResultSet rs = st.executeQuery(Query);
+            
+            while(rs.next()){
+                InCategoryValue.addItem(rs.getString("category"));
+            }
+
+        }catch(SQLException exception){
+            System.err.println(exception);
+        }
+    } 
+
+    
 
 
 }

@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class HomePage {
+public class HomePage extends Thread {
 
     //-----------------------------------------------G L O B A L----------------------------------------------//
 
@@ -31,6 +31,16 @@ public class HomePage {
     JLabel Button_Panel_Title = new JLabel();
 
     Category CategoryPanel = new Category();
+
+    Animation WhiteScreen = new Animation();
+
+    //-----------------------------------------------T H R E A D----------------------------------------------//
+
+    public void run(){  // It Will run when thread starts
+        WhiteScreen.StartAnimation(700);
+    }
+
+
     //-----------------------------------------------C O N S T R U C T O R----------------------------------------------//
 
     public HomePage() {
@@ -420,19 +430,23 @@ public class HomePage {
     // Cash In
     public void CashInclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
         Context_Heading.setText("CASH IN");
 
         Cash_In.setVisible(true);
         Cash_Out.setVisible(false);
         History.setVisible(false);
+
+        Cash_In.CashInCombobox();
     }
 
 
     // Cash Out
     public void CashOutclicked(java.awt.event.MouseEvent e)
     {
-        Context_Heading.setText("CASH OUT");
+        new Thread(this).start();
 
+        Context_Heading.setText("CASH OUT");
 
         Cash_In.setVisible(false);
         Cash_Out.setVisible(true);
@@ -443,8 +457,9 @@ public class HomePage {
     // History
     public void Historyclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
+        
         Context_Heading.setText("HISTORY");
-
 
         Cash_In.setVisible(false);
         Cash_Out.setVisible(false);
