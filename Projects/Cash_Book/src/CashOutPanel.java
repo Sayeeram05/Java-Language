@@ -2,8 +2,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -13,16 +20,22 @@ public class CashOutPanel extends JPanel implements ActionListener{
 
     //-----------------------------------------------G L O B A L----------------------------------------------//
 
+    private static final String URL = "jdbc:mysql://localhost:3306/cashbook";
+    private static final String USER = "root";
+    private static final String PASSWORD = "7418022289";
+
     GradientButton SaveButton = new GradientButton(Color.decode("#004FF9"), Color.decode("#56CCF2"));
     GradientButton CategoryButton = new GradientButton(Color.decode("#283048"), Color.decode("#859398"));
 
     JPanel HeadingPanel = new JPanel();
 
-    JTextField InAmountValue = new JTextField();
-    JTextField InCategoryValue = new JTextField();
+    JTextField OutAmountValue = new JTextField();
     LocalDate Today = LocalDate.now();
     JLabel TodaysDateValue = new JLabel(Today.toString());
     JTextField RemarkValue = new JTextField();
+
+    JComboBox<String> OutCategoryValue = new JComboBox<>();
+
     
     public CashOutPanel() {
 
@@ -55,8 +68,8 @@ public class CashOutPanel extends JPanel implements ActionListener{
         //----------------------------------------------H E A D I N G P A N E L---------------------------------------------//
 
         // Initilize components used in Heading Panel
-        JLabel InAmountHeading = new JLabel("ENPENSE - ");
-        JLabel InAmountHeadingValue = new JLabel("0000");
+        JLabel OutAmountHeading = new JLabel("EXPENSE - ");
+        JLabel OutAmountHeadingValue = new JLabel("0000");
         JLabel BalanceHeading = new JLabel("BALANCE - ");
         JLabel BalanceHeadingValue = new JLabel("0000");
 
@@ -68,14 +81,14 @@ public class CashOutPanel extends JPanel implements ActionListener{
         HeadingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
         // In Amount Heading
-        InAmountHeading.setFont(new Font("Roboto", Font.BOLD, 30));
-        InAmountHeading.setBounds(366, 10, 220,50);
-        InAmountHeading.setForeground(Color.BLACK);
+        OutAmountHeading.setFont(new Font("Roboto", Font.BOLD, 30));
+        OutAmountHeading.setBounds(366, 10, 220,50);
+        OutAmountHeading.setForeground(Color.BLACK);
 
         // In Amount Heading Value
-        InAmountHeadingValue.setFont(new Font("Roboto", Font.BOLD, 30));
-        InAmountHeadingValue.setBounds(540, 10, 220,50);
-        InAmountHeadingValue.setForeground(new Color(240, 240, 240));
+        OutAmountHeadingValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        OutAmountHeadingValue.setBounds(540, 10, 220,50);
+        OutAmountHeadingValue.setForeground(new Color(240, 240, 240));
 
         // Balance Heading
         BalanceHeading.setFont(new Font("Roboto", Font.BOLD, 30));
@@ -89,41 +102,45 @@ public class CashOutPanel extends JPanel implements ActionListener{
     
 
         // Adding Elements In The Heading Panel
-        HeadingPanel.add(InAmountHeading);
-        HeadingPanel.add(InAmountHeadingValue);
+        HeadingPanel.add(OutAmountHeading);
+        HeadingPanel.add(OutAmountHeadingValue);
         HeadingPanel.add(BalanceHeading);
         HeadingPanel.add(BalanceHeadingValue);
 
         //----------------------------------------------D E T A I L S---------------------------------------------//
 
-        JLabel InAmountLabel = new JLabel("CASH OUT"); 
-        JLabel InCategoryLabel = new JLabel("OUT CATEGORY");
+        JLabel OutAmountLabel = new JLabel("CASH OUT"); 
+        JLabel OutCategoryLabel = new JLabel("OUT CATEGORY");
         JLabel TodaysDateLabel = new JLabel("TODAY");
         JLabel RemarkLabel = new JLabel("Remark");
         
 
 
         // In Amount Label
-        InAmountLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
-        InAmountLabel.setForeground(Color.BLACK);
-        InAmountLabel.setBounds(150, 120, 200, 30); 
+        OutAmountLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
+        OutAmountLabel.setForeground(Color.BLACK);
+        OutAmountLabel.setBounds(150, 120, 200, 30); 
 
         // In Amount Value
-        InAmountValue.setBounds(150, 150, 450, 45);
-        InAmountValue.setBorder(BorderFactory.createLoweredBevelBorder());
-        InAmountValue.setFont(new Font("Roboto", Font.BOLD, 30));
-        InAmountValue.setForeground(Color.decode("#004FF9"));
+        OutAmountValue.setBounds(150, 150, 450, 45);
+        OutAmountValue.setBorder(BorderFactory.createLoweredBevelBorder());
+        OutAmountValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        OutAmountValue.setForeground(Color.decode("#004FF9"));
 
         // In Category Label
-        InCategoryLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
-        InCategoryLabel.setForeground(Color.BLACK);
-        InCategoryLabel.setBounds(800, 120, 250, 30); 
+        OutCategoryLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
+        OutCategoryLabel.setForeground(Color.BLACK);
+        OutCategoryLabel.setBounds(800, 120, 250, 30); 
 
         // In Category Value
-        InCategoryValue.setBounds(800, 150, 450, 45);
-        InCategoryValue.setBorder(BorderFactory.createLoweredBevelBorder());
-        InCategoryValue.setFont(new Font("Roboto", Font.BOLD, 30));
-        InCategoryValue.setForeground(Color.decode("#004FF9"));
+        OutCategoryValue.setBounds(800, 150, 450, 45);
+        OutCategoryValue.setBorder(BorderFactory.createLoweredBevelBorder());
+        OutCategoryValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        OutCategoryValue.setForeground(Color.BLUE);
+        OutCategoryValue.setBackground(Color.WHITE);
+        OutCategoryValue.setFocusable(false); 
+        CashOutCombobox();
+
 
         // Today's Date Label
         TodaysDateLabel.setFont(new Font("Roboto", Font.BOLD, 30)); 
@@ -156,10 +173,10 @@ public class CashOutPanel extends JPanel implements ActionListener{
         add(SaveButton);
         add(CategoryButton);
         add(HeadingPanel);
-        add(InAmountLabel);
-        add(InAmountValue);
-        add(InCategoryLabel);
-        add(InCategoryValue);
+        add(OutAmountLabel);
+        add(OutAmountValue);
+        add(OutCategoryLabel);
+        add(OutCategoryValue);
         add(TodaysDateLabel);
         add(TodaysDateValue);
         add(RemarkLabel);
@@ -172,17 +189,65 @@ public class CashOutPanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == SaveButton){
-            String InAmount = InAmountValue.getText();
-            String InCategory = InCategoryValue.getText();
-            String Date = TodaysDateValue.getText();
-            String Remark =  RemarkValue.getText();
-            System.out.println(InAmount + InCategory + Date +Remark);
+            try {
+                int OutAmount = Integer.parseInt(OutAmountValue.getText());
+                String OutCategory = (String)OutCategoryValue.getSelectedItem();
+                String Date = TodaysDateValue.getText();
+                String Remark =  RemarkValue.getText();
+                System.out.println(OutAmount + OutCategory + Date +Remark);
+
+                String Query = "INSERT INTO cashout (Expense, OutCategory, Date, Remark) VALUES (?,?,?,?);";
+                if(OutAmount > 1){
+                    try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
+                        PreparedStatement Statemet = Connect.prepareCall(Query)){
+
+                            Statemet.setInt(1, OutAmount);
+                            Statemet.setString(2, OutCategory);
+                            Statemet.setString(3, Date);
+                            Statemet.setString(4, Remark);
+
+                        Statemet.executeUpdate();  
+                    }catch(SQLException exception){
+                        System.err.println(exception);
+                    }
+                }
+                else{
+                    new MessageBox("CASH OUT", "INVALID AMOUNT(MIN - RS.1)");
+                }
+
+            }catch(NumberFormatException ex) {
+                System.out.println(ex);
+                new MessageBox("CASH OUT", "PLEASE ENTER CORRECT AMOUNT");
+            }
+
+            OutAmountValue.setText("");
+            OutCategoryValue.setSelectedIndex(0);
+            RemarkValue.setText("");
+            
         }
         if(e.getSource() == CategoryButton){
 
         }
     }
 
+
+    public void CashOutCombobox(){
+        OutCategoryValue.removeAllItems();
+
+        String Query = "SELECT category FROM outcategory";
+        try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement st = Connect.createStatement()){
+
+            ResultSet rs = st.executeQuery(Query);
+            
+            while(rs.next()){
+                OutCategoryValue.addItem(rs.getString("category"));
+            }
+
+        }catch(SQLException exception){
+            System.err.println(exception);
+        }
+    }
 
 }
 

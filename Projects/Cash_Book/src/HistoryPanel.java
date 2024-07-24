@@ -8,10 +8,10 @@ public class HistoryPanel extends JPanel{
     public HistoryPanel() {
 
         // Defining Cash In
-        setBounds(30, 460, 1440, 505);
-        setBackground(Color.BLACK);//   new Color(206 , 230, 243) new Color(240, 240, 240)
+        setBounds(0, 0, 1440, 505);
+        setBackground(new Color(240, 240, 240));//  new Color(206 , 230, 243) 
         setLayout(null);
-        setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         setVisible(false);
         
     }

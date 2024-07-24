@@ -12,8 +12,8 @@ public class Animation {
         AnimationFrame.setLocationRelativeTo(null);  // display AnimationFrame in center of screen
         AnimationFrame.setUndecorated(true);
         AnimationFrame.setLayout(null);
-        AnimationFrame.setIconImage(new ImageIcon("lib\\images\\companylogo.png").getImage());
-        AnimationFrame.setBackground(new Color(0.0f,0.0f,0.0f,0.5f));
+        AnimationFrame.setIconImage(new ImageIcon("lib\\images\\App_Icon.png").getImage());
+        AnimationFrame.setBackground(new Color(0.0f,0.0f,0.0f,0.3f));
 
     }
 

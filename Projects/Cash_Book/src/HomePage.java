@@ -37,7 +37,7 @@ public class HomePage extends Thread {
     //-----------------------------------------------T H R E A D----------------------------------------------//
 
     public void run(){  // It Will run when thread starts
-        WhiteScreen.StartAnimation(700);
+        WhiteScreen.StartAnimation(600);
     }
 
 
@@ -220,6 +220,19 @@ public class HomePage extends Thread {
         
 
         //----------------------------------------------C O N T E N T P A N E L---------------------------------------------//
+        JPanel HeadingPanel = new JPanel();
+
+        JPanel TotalCashInPanel = new JPanel();
+        JLabel TotalCashInTitle = new JLabel("INCOME");
+        JLabel TotalCashInValue = new JLabel("0000");
+        
+        JPanel TotalCashOutPanel = new JPanel();
+        JLabel TotalCashOutTitle = new JLabel("EXPENSE");
+        JLabel TotalCashOutValue = new JLabel("0000");
+
+        JPanel BalancePanel = new JPanel();
+        JLabel BalanceTitle = new JLabel("BALANCE");
+        JLabel BalanceValue = new JLabel("0000");
 
         // Content Panel Heading
         Context_Heading.setFont(new Font("Roboto", Font.BOLD, 35));
@@ -232,9 +245,89 @@ public class HomePage extends Thread {
         Content_Panel.setLayout(null);
         Content_Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
+        // Defining Heading Panel
+        HeadingPanel.setBounds(0,0,1440, 76);
+        HeadingPanel.setBackground(Color.decode("#0065C4"));// new Color(240, 240, 240) new Color(206 , 230, 243)0065C4 #0779E4
+        HeadingPanel.setLayout(null);
+        HeadingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+        TotalCashInPanel.setBounds(0, 0, 455, 76);
+        TotalCashInPanel.setBackground(Color.decode("#007CF1"));//  new Color(206, 230, 243)
+        TotalCashInPanel.setLayout(null);
+        TotalCashInPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+        // TotalCashInTitle
+        TotalCashInTitle.setFont(new Font("Roboto", Font.BOLD, 30));
+        TotalCashInTitle.setBounds(40, 13, 220,50);
+        TotalCashInTitle.setForeground(Color.BLACK);
+
+        // TotalCashInValue
+        TotalCashInValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        TotalCashInValue.setBounds(190, 13, 220,50);
+        TotalCashInValue.setForeground(Color.decode("#17A589"));
+        TotalCashInValue.setOpaque(true);
+        TotalCashInValue.setBackground(Color.decode("#E5E7E9"));
+        TotalCashInValue.setBorder(BorderFactory.createRaisedBevelBorder());
+        TotalCashInValue.setHorizontalAlignment(0);
+
+        TotalCashInPanel.add(TotalCashInTitle);
+        TotalCashInPanel.add(TotalCashInValue);
+
+        TotalCashOutPanel.setBounds(492, 0, 455, 76);
+        TotalCashOutPanel.setBackground(Color.decode("#007CF1"));//  new Color(206, 230, 243)
+        TotalCashOutPanel.setLayout(null);
+        TotalCashOutPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+        // TotalCashOutTitle
+        TotalCashOutTitle.setFont(new Font("Roboto", Font.BOLD, 30));
+        TotalCashOutTitle.setBounds(30, 13, 220,50);
+        TotalCashOutTitle.setForeground(Color.BLACK);
+
+        // TotalCashOutValue
+        TotalCashOutValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        TotalCashOutValue.setBounds(200, 13, 220,50);
+        TotalCashOutValue.setForeground(Color.decode("#CB4335"));
+        TotalCashOutValue.setOpaque(true);
+        TotalCashOutValue.setBackground(Color.decode("#E5E7E9"));
+        TotalCashOutValue.setBorder(BorderFactory.createRaisedBevelBorder());
+        TotalCashOutValue.setHorizontalAlignment(0);
+
+        TotalCashOutPanel.add(TotalCashOutTitle);
+        TotalCashOutPanel.add(TotalCashOutValue);
+
+        BalancePanel.setBounds(985, 0, 455, 76);
+        BalancePanel.setBackground(Color.decode("#007CF1"));//  new Color(206, 230, 243)
+        BalancePanel.setLayout(null);
+        BalancePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+        // BalanceTitle
+        BalanceTitle.setFont(new Font("Roboto", Font.BOLD, 30));
+        BalanceTitle.setBounds(25, 13, 220,50);
+        BalanceTitle.setForeground(Color.BLACK);
+
+        // BalanceValue
+        BalanceValue.setFont(new Font("Roboto", Font.BOLD, 30));
+        BalanceValue.setBounds(200, 13, 220,50);
+        BalanceValue.setForeground(Color.decode("#0779E4"));
+        BalanceValue.setOpaque(true);
+        BalanceValue.setBackground(Color.decode("#E5E7E9"));
+        BalanceValue.setBorder(BorderFactory.createRaisedBevelBorder());
+        BalanceValue.setHorizontalAlignment(0);
+
+        BalancePanel.add(BalanceTitle);
+        BalancePanel.add(BalanceValue);
+
+
+        HeadingPanel.add(TotalCashInPanel);
+        HeadingPanel.add(TotalCashOutPanel);
+        HeadingPanel.add(BalancePanel);
+
+
         // Adding defined components to the ContentPanel
         Content_Panel.add(Cash_In);
         Content_Panel.add(Cash_Out);
+        Content_Panel.add(History);
+        Content_Panel.add(HeadingPanel);
 
 
 
@@ -451,6 +544,8 @@ public class HomePage extends Thread {
         Cash_In.setVisible(false);
         Cash_Out.setVisible(true);
         History.setVisible(false);
+
+        Cash_Out.CashOutCombobox();
     }
 
 
@@ -470,6 +565,8 @@ public class HomePage extends Thread {
     // Home
     public void homeclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
+
         Context_Heading.setText("Home Table");
 
         home.setForeground(Color.BLACK);
@@ -497,6 +594,7 @@ public class HomePage extends Thread {
     // Category
     public void Categoryclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
         
         home.setForeground(new Color(240, 240, 240));
         Category.setForeground(Color.BLACK);
