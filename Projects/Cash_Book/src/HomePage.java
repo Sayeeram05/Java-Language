@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
@@ -6,6 +7,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 
 public class HomePage extends Thread {
@@ -234,6 +240,53 @@ public class HomePage extends Thread {
         JLabel BalanceTitle = new JLabel("BALANCE");
         JLabel BalanceValue = new JLabel("0000");
 
+
+        JPanel CashInTableHeadingPanel = new JPanel();
+        JPanel CashInTableBasePanel = new JPanel();
+
+        String[] CashInColumnName = {"INCOME","CATEGORY","DATE"};
+        
+        String[][] CashInData = {{"1000","Income 1","2024-07-23"},
+            {"200","Income 1","2024-07-23"},
+            {"500","In5","2024-07-23"},
+            {"1000","Income 1","2024-07-23"},
+            {"200","Income 1","2024-07-23"},
+            {"500","In5","2024-07-23"},
+            {"1000","Income 1","2024-07-23"},
+            {"200","Income 1","2024-07-23"},
+            {"500","In5","2024-07-23"},
+            {"200","Income 1","2024-07-23"},
+            {"500","In5","2024-07-23"},
+            {"1000","Income 1","2024-07-23"},
+            {"200","Income 1","2024-07-23"},
+            {"500","In5","2024-07-23"},
+            {"1000","Income 1","2024-07-23"},
+            {"200","Income 1","2024-07-23"},
+            {"500","In5","2024-07-23"}};
+
+        JTable CashInTable = new JTable(CashInData,CashInColumnName);
+
+        JTableHeader header = CashInTable.getTableHeader();
+        header.setDefaultRenderer(new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel label = new JLabel(value.toString());
+                label.setFont(new Font("Roboto", Font.BOLD, 25)); // Set your desired font
+                label.setForeground(Color.decode("#ecf0f1")); // Set your desired font color
+                label.setHorizontalAlignment(SwingConstants.CENTER); // Center align the header text
+                label.setBackground(Color.decode("#2e86c1")); // Set your desired background color
+                label.setOpaque(true); // Necessary for background color to display
+                label.setBorder(BorderFactory.createRaisedBevelBorder());
+                return label;
+            }
+        });
+        
+        
+        JScrollPane CashInTableScrollPanel = new JScrollPane(CashInTable);
+
+
+        JPanel CashOutTabelHeadingPanel = new JPanel();
+
         // Content Panel Heading
         Context_Heading.setFont(new Font("Roboto", Font.BOLD, 35));
         Context_Heading.setForeground(new Color(6, 143, 255));
@@ -241,7 +294,7 @@ public class HomePage extends Thread {
         
 
         Content_Panel.setBounds(30, 460, 1440, 505);
-        Content_Panel.setBackground(new Color(240, 240, 240));//  new Color(206, 230, 243)
+        Content_Panel.setBackground(Color.decode("#616a6b"));//  new Color(206, 230, 243)
         Content_Panel.setLayout(null);
         Content_Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
@@ -323,11 +376,53 @@ public class HomePage extends Thread {
         HeadingPanel.add(BalancePanel);
 
 
+        // CashInTableHeadingPanel
+        CashInTableHeadingPanel.setBounds(15,86,700, 60);
+        CashInTableHeadingPanel.setBackground(Color.decode("#a6acaf"));
+        CashInTableHeadingPanel.setLayout(null);
+        CashInTableHeadingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+
+        CashInTableBasePanel.setBounds(15,150,700, 300);
+        CashInTableBasePanel.setBackground(Color.CYAN);
+        CashInTableBasePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+        CashInTableScrollPanel.setPreferredSize(new Dimension(600,300));
+        CashInTableScrollPanel.setBorder(BorderFactory.createEmptyBorder());
+        
+        CashInTable.setFont(new Font("Roboto", Font.BOLD, 30));
+        CashInTable.setRowHeight(30);
+        CashInTable.setBackground(Color.decode("#f2f3f4"));
+        CashInTable.setPreferredScrollableViewportSize(new Dimension(300,200));
+
+        CashInTableBasePanel.add(CashInTableScrollPanel);
+
+        
+
+
+
+        // CashOutTabelHeadingPanel
+        CashOutTabelHeadingPanel.setBounds(725,86,700, 60);
+        CashOutTabelHeadingPanel.setBackground(Color.decode("#a6acaf"));
+        CashOutTabelHeadingPanel.setLayout(null);
+        CashOutTabelHeadingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+        
+
+       
+
+
+
+
         // Adding defined components to the ContentPanel
         Content_Panel.add(Cash_In);
         Content_Panel.add(Cash_Out);
         Content_Panel.add(History);
         Content_Panel.add(HeadingPanel);
+
+        Content_Panel.add(CashInTableHeadingPanel);
+        Content_Panel.add(CashOutTabelHeadingPanel);
+        Content_Panel.add(CashInTableBasePanel);
 
 
 

@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Category extends JPanel implements ActionListener{
+public class Category extends JPanel implements ActionListener, Runnable{
 
     //-----------------------------------------------G L O B A L----------------------------------------------//
 
@@ -22,6 +22,13 @@ public class Category extends JPanel implements ActionListener{
     GradientButton DataButton = new GradientButton(Color.decode("#283048"), Color.decode("#859398"));
 
     JPanel CategoryDataPanel = new JPanel();
+
+    Animation WhiteScreen = new Animation();
+
+    public void run(){  // It Will run when thread starts
+        WhiteScreen.StartAnimation(600);
+    }
+
     
     public Category(){
 
@@ -274,6 +281,8 @@ public class Category extends JPanel implements ActionListener{
     // Cash In Add
     public void CashInAddclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
+        
         Context_Heading.setText("CASH IN - ADD");
         DataButton.setText("ADD");
 
@@ -283,6 +292,8 @@ public class Category extends JPanel implements ActionListener{
     // Cash In Remove
     public void CashInRemoveclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
+
         Context_Heading.setText("CASH IN - REMOVE");
         DataButton.setText("REMOVE");
 
@@ -294,6 +305,8 @@ public class Category extends JPanel implements ActionListener{
     // Cash Out Add
     public void CashOutAddclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
+
         Context_Heading.setText("CASH OUT - ADD");
         DataButton.setText("ADD");
 
@@ -302,6 +315,8 @@ public class Category extends JPanel implements ActionListener{
     // Cash Out Remove
     public void CashOutRemoveclicked(java.awt.event.MouseEvent e)
     {
+        new Thread(this).start();
+
         Context_Heading.setText("CASH OUT - REMOVE");
         DataButton.setText("REMOVE");
 
