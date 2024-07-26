@@ -1,7 +1,10 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Test {
 
@@ -11,21 +14,25 @@ public class Test {
 
 
     public static void AddDataInCashIn(){
-        int InAmount = 1000;
-        String InCategory = "Income 1";
-        String Date = "2024-07-23" ;
-        String Remark =  "Test";
-        String Query = "INSERT INTO cashin (Income, InCategory, Date, Remark) VALUES (?,?,?,?);";
+        List<String[]> Data = new ArrayList<>();
+
+        String Query = "SELECT Income,InCategory,Date FROM cashin;";
         try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
-            PreparedStatement Statemet = Connect.prepareCall(Query)){
+            Statement St = Connect.createStatement()){
 
-                Statemet.setInt(1, InAmount);
-                Statemet.setString(2, InCategory);
-                Statemet.setString(3, Date);
-                Statemet.setString(4, Remark);
+            ResultSet Rs = St.executeQuery(Query);
+    
+            while(Rs.next()){
+                String[] Row = {Rs.getString("Income"),Rs.getString("InCategory"),Rs.getString("Date")};
+                
+                Data.add(Row);
 
-            int Row = Statemet.executeUpdate();
-            System.out.println(Row);
+                
+            }
+            for(String[] Rows : Data){
+                for(String Row : Rows)
+                System.out.println(Row);
+            }
             
         }catch(SQLException exception){
             System.err.println(exception);
@@ -33,6 +40,7 @@ public class Test {
     } 
     public static void main(String[] args) {
         AddDataInCashIn();
+        
     }
     
 }

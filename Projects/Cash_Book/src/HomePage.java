@@ -2,6 +2,14 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -39,6 +47,14 @@ public class HomePage extends Thread {
     Category CategoryPanel = new Category();
 
     Animation WhiteScreen = new Animation();
+
+    private static final String URL = "jdbc:mysql://localhost:3306/cashbook";
+    private static final String USER = "root";
+    private static final String PASSWORD = "7418022289";
+
+    JTable CashInTable;
+    List<String[]> CashInList;
+    String[][] CashInData;
 
     //-----------------------------------------------T H R E A D----------------------------------------------//
 
@@ -242,11 +258,41 @@ public class HomePage extends Thread {
 
 
         JPanel CashInTableHeadingPanel = new JPanel();
+        JLabel CashInTableHeading = new JLabel("CASH IN");
         JPanel CashInTableBasePanel = new JPanel();
 
         String[] CashInColumnName = {"INCOME","CATEGORY","DATE"};
         
-        String[][] CashInData = {{"1000","Income 1","2024-07-23"},
+        CashInList = this.CashInAddData();
+
+        CashInData = CashInList.toArray(new String[0][0]);
+
+        CashInTable = new JTable(CashInData,CashInColumnName);
+
+        JTableHeader CashInHeader = CashInTable.getTableHeader();
+        CashInHeader.setDefaultRenderer(new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel label = new JLabel(value.toString());
+                label.setFont(new Font("Roboto", Font.BOLD, 30)); // Set your desired font
+                label.setForeground(Color.decode("#ecf0f1")); // Set your desired font color
+                label.setHorizontalAlignment(SwingConstants.CENTER); // Center align the header text
+                label.setBackground(Color.decode("#2e86c1")); // Set your desired background color
+                label.setOpaque(true); // Necessary for background color to display
+                label.setBorder(BorderFactory.createRaisedBevelBorder());
+                return label;
+            }
+        });
+        JScrollPane CashInTableScrollPanel = new JScrollPane(CashInTable);
+
+        JPanel CashOutTabelHeadingPanel = new JPanel();
+        JLabel CashOutTableHeading = new JLabel("CASH OUT");
+
+        JPanel CashOutTableBasePanel = new JPanel();
+
+        String[] CashOutColumnName = {"EXPENSE","CATEGORY","DATE"};
+        
+        String[][] CashOutData = {{"1000","Income 1","2024-07-23"},
             {"200","Income 1","2024-07-23"},
             {"500","In5","2024-07-23"},
             {"1000","Income 1","2024-07-23"},
@@ -264,14 +310,13 @@ public class HomePage extends Thread {
             {"200","Income 1","2024-07-23"},
             {"500","In5","2024-07-23"}};
 
-        JTable CashInTable = new JTable(CashInData,CashInColumnName);
-
-        JTableHeader header = CashInTable.getTableHeader();
-        header.setDefaultRenderer(new TableCellRenderer() {
+        JTable CashOutTable = new JTable(CashOutData,CashOutColumnName);
+        JTableHeader CashOutHeader = CashOutTable.getTableHeader();
+        CashOutHeader.setDefaultRenderer(new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel label = new JLabel(value.toString());
-                label.setFont(new Font("Roboto", Font.BOLD, 25)); // Set your desired font
+                label.setFont(new Font("Roboto", Font.BOLD, 30)); // Set your desired font
                 label.setForeground(Color.decode("#ecf0f1")); // Set your desired font color
                 label.setHorizontalAlignment(SwingConstants.CENTER); // Center align the header text
                 label.setBackground(Color.decode("#2e86c1")); // Set your desired background color
@@ -280,12 +325,7 @@ public class HomePage extends Thread {
                 return label;
             }
         });
-        
-        
-        JScrollPane CashInTableScrollPanel = new JScrollPane(CashInTable);
-
-
-        JPanel CashOutTabelHeadingPanel = new JPanel();
+        JScrollPane CashOutTableScrollPanel = new JScrollPane(CashOutTable);
 
         // Content Panel Heading
         Context_Heading.setFont(new Font("Roboto", Font.BOLD, 35));
@@ -377,39 +417,62 @@ public class HomePage extends Thread {
 
 
         // CashInTableHeadingPanel
-        CashInTableHeadingPanel.setBounds(15,86,700, 60);
+        CashInTableHeadingPanel.setBounds(20,93,690, 60);
         CashInTableHeadingPanel.setBackground(Color.decode("#a6acaf"));
         CashInTableHeadingPanel.setLayout(null);
         CashInTableHeadingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
+        CashInTableHeading.setFont(new Font("Roboto", Font.BOLD, 37));
+        CashInTableHeading.setForeground(Color.BLACK);
+        CashInTableHeading.setBounds(255, 12, 200, 38);
 
-        CashInTableBasePanel.setBounds(15,150,700, 300);
-        CashInTableBasePanel.setBackground(Color.CYAN);
-        CashInTableBasePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        CashInTableHeadingPanel.add(CashInTableHeading);
 
-        CashInTableScrollPanel.setPreferredSize(new Dimension(600,300));
+        CashInTableBasePanel.setBounds(21,154,688, 342);
+        CashInTableBasePanel.setBackground(Color.decode("#a6acaf"));
+
+        CashInTableScrollPanel.setPreferredSize(new Dimension(675,330));
         CashInTableScrollPanel.setBorder(BorderFactory.createEmptyBorder());
         
-        CashInTable.setFont(new Font("Roboto", Font.BOLD, 30));
-        CashInTable.setRowHeight(30);
+        CashInTable.setFont(new Font("Roboto", Font.BOLD, 28));
+        CashInTable.setRowHeight(45);
         CashInTable.setBackground(Color.decode("#f2f3f4"));
         CashInTable.setPreferredScrollableViewportSize(new Dimension(300,200));
+        CashInTable.getTableHeader().setReorderingAllowed(false);
+        // CashInTable.
+        CashInTable.setEnabled(false);
+
+
 
         CashInTableBasePanel.add(CashInTableScrollPanel);
 
         
-
-
-
         // CashOutTabelHeadingPanel
-        CashOutTabelHeadingPanel.setBounds(725,86,700, 60);
+        CashOutTabelHeadingPanel.setBounds(730,93,690, 60);
         CashOutTabelHeadingPanel.setBackground(Color.decode("#a6acaf"));
         CashOutTabelHeadingPanel.setLayout(null);
         CashOutTabelHeadingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
-        
+        CashOutTableHeading.setFont(new Font("Roboto", Font.BOLD, 37));
+        CashOutTableHeading.setForeground(Color.BLACK);
+        CashOutTableHeading.setBounds(240, 12, 200, 38);
 
-       
+        CashOutTabelHeadingPanel.add(CashOutTableHeading);
+
+        
+        CashOutTableBasePanel.setBounds(731,154,688, 342);
+        CashOutTableBasePanel.setBackground(Color.decode("#a6acaf"));
+
+        CashOutTableScrollPanel.setPreferredSize(new Dimension(675,330));
+        CashOutTableScrollPanel.setBorder(BorderFactory.createEmptyBorder());
+        
+        CashOutTable.setFont(new Font("Roboto", Font.BOLD, 30));
+        CashOutTable.setRowHeight(40);
+        CashOutTable.setBackground(Color.decode("#f2f3f4"));
+        CashOutTable.setPreferredScrollableViewportSize(new Dimension(300,200));
+
+        CashOutTableBasePanel.add(CashOutTableScrollPanel);
+        
 
 
 
@@ -423,6 +486,9 @@ public class HomePage extends Thread {
         Content_Panel.add(CashInTableHeadingPanel);
         Content_Panel.add(CashOutTabelHeadingPanel);
         Content_Panel.add(CashInTableBasePanel);
+        Content_Panel.add(CashOutTableBasePanel);
+
+        
 
 
 
@@ -675,7 +741,7 @@ public class HomePage extends Thread {
 
         CategoryPanel.VisibilityCategoty(false);
         
-
+        // UpdateCashInTable();
     }
     public void homeentered(java.awt.event.MouseEvent e)
     {
@@ -731,6 +797,45 @@ public class HomePage extends Thread {
 
     }
 
+    public List<String[]> CashInAddData(){
+        List<String[]> Data = new ArrayList<>();
+
+        String Query = "SELECT Income,InCategory,Date FROM cashin;";
+        try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement St = Connect.createStatement()){
+
+            ResultSet Rs = St.executeQuery(Query);
+    
+            while(Rs.next()){
+                String[] Row = {Rs.getString("Income"),Rs.getString("InCategory"),Rs.getString("Date")};
+                
+                Data.add(Row);
+
+                
+            }
+            
+            
+        }catch(SQLException exception){
+            System.err.println(exception);
+        }
+
+        return Data;
+    }
+
+    // public void UpdateCashInTable(){
+
+    //     CashInList.clear();
+    //     CashInList = this.CashInAddData();
+    //     CashInData = CashInList.toArray(new String[0][0]);
+
+    //     for(String[] Rows : CashInData){
+    //         for(String Row : Rows)
+    //         System.out.println(Row);
+    //     }
+
+    //     CashInTable.
+        
+    // }
 
     public static void main(String[] args) {
         new HomePage();
