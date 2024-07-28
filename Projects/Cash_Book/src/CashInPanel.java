@@ -38,9 +38,15 @@ public class CashInPanel extends JPanel implements ActionListener{
     // List<String> InCategoryList = new ArrayList<>();
     JComboBox<String> InCategoryValue = new JComboBox<>();
 
+    JLabel InAmountHeadingValue;
+    JLabel BalanceHeadingValue;
     
-    
+
+
     public CashInPanel() {
+
+        DataForHomeTable function = new DataForHomeTable();
+        
 
         // Defining Cash In
         setBounds(30, 460, 1440, 505);
@@ -72,9 +78,9 @@ public class CashInPanel extends JPanel implements ActionListener{
 
         // Initilize components used in Heading Panel
         JLabel InAmountHeading = new JLabel("INCOME - ");
-        JLabel InAmountHeadingValue = new JLabel("0000");
+        InAmountHeadingValue = new JLabel(String.valueOf(function.Income));
         JLabel BalanceHeading = new JLabel("BALANCE - ");
-        JLabel BalanceHeadingValue = new JLabel("0000");
+        BalanceHeadingValue = new JLabel(String.valueOf(function.Balance));
 
 
         // Defining Heading Panel
@@ -186,6 +192,7 @@ public class CashInPanel extends JPanel implements ActionListener{
         add(RemarkLabel);
         add(RemarkValue);
 
+
     }
 
     //--------------------------------------------A C T I O N L I S T E N E R-------------------------------------------//
@@ -214,6 +221,20 @@ public class CashInPanel extends JPanel implements ActionListener{
                     }catch(SQLException exception){
                         System.err.println(exception);
                     }
+                    
+                    Query = "INSERT INTO history (CashType, Amount, Category, Date) VALUES ('Income', ?,?,?)";
+                    try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
+                        PreparedStatement Statemet = Connect.prepareCall(Query)){
+
+                            Statemet.setInt(1, InAmount);
+                            Statemet.setString(2, InCategory);
+                            Statemet.setString(3, Date);
+
+                        Statemet.executeUpdate();  
+                    }catch(SQLException exception){
+                        System.err.println(exception);
+                    }
+                    
                 }
                 else{
                     new MessageBox("CASH IN", "INVALID AMOUNT(MIN - RS.1)");
@@ -227,6 +248,10 @@ public class CashInPanel extends JPanel implements ActionListener{
             InAmountValue.setText("");
             InCategoryValue.setSelectedIndex(0);
             RemarkValue.setText("");
+
+            DataForHomeTable function = new DataForHomeTable();
+            InAmountHeadingValue.setText(String.valueOf(function.Income));
+            BalanceHeadingValue.setText(String.valueOf(function.Balance));
             
         }
         if(e.getSource() == CategoryButton){

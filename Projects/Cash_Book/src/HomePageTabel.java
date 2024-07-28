@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
@@ -32,7 +33,11 @@ public class HomePageTabel extends JPanel{
     List<String[]> CashOutList;
     String[][] CashOutData;
 
+
     public HomePageTabel() {
+
+        DataForHomeTable function = new DataForHomeTable();
+        
 
         setBounds(30, 460, 1440, 505);
         setBackground(Color.decode("#616a6b"));//  new Color(206, 230, 243)
@@ -44,15 +49,15 @@ public class HomePageTabel extends JPanel{
 
         JPanel TotalCashInPanel = new JPanel();
         JLabel TotalCashInTitle = new JLabel("INCOME");
-        JLabel TotalCashInValue = new JLabel("0000");
+        JLabel TotalCashInValue = new JLabel(String.valueOf(function.Income));
         
         JPanel TotalCashOutPanel = new JPanel();
         JLabel TotalCashOutTitle = new JLabel("EXPENSE");
-        JLabel TotalCashOutValue = new JLabel("0000");
+        JLabel TotalCashOutValue = new JLabel(String.valueOf(function.Expense));
 
         JPanel BalancePanel = new JPanel();
         JLabel BalanceTitle = new JLabel("BALANCE");
-        JLabel BalanceValue = new JLabel("0000");
+        JLabel BalanceValue = new JLabel(String.valueOf(function.Balance));
 
 
         JPanel CashInTableHeadingPanel = new JPanel();
@@ -81,6 +86,16 @@ public class HomePageTabel extends JPanel{
                 return label;
             }
         });
+
+        // Create a cell renderer to center text
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Apply the cell renderer to each column
+        for (int i = 0; i < CashInTable.getColumnCount(); i++) {
+            CashInTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
         JScrollPane CashInTableScrollPanel = new JScrollPane(CashInTable);
 
         JPanel CashOutTabelHeadingPanel = new JPanel();
@@ -109,6 +124,12 @@ public class HomePageTabel extends JPanel{
                 return label;
             }
         });
+
+        // Apply the cell renderer to each column
+        for (int i = 0; i < CashOutTable.getColumnCount(); i++) {
+            CashOutTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
         JScrollPane CashOutTableScrollPanel = new JScrollPane(CashOutTable);
 
         
@@ -217,7 +238,6 @@ public class HomePageTabel extends JPanel{
         CashInTable.setBackground(Color.decode("#f2f3f4"));
         CashInTable.setPreferredScrollableViewportSize(new Dimension(300,200));
         CashInTable.getTableHeader().setReorderingAllowed(false);
-        // CashInTable.
         CashInTable.setEnabled(false);
 
 
@@ -243,11 +263,13 @@ public class HomePageTabel extends JPanel{
 
         CashOutTableScrollPanel.setPreferredSize(new Dimension(675,330));
         CashOutTableScrollPanel.setBorder(BorderFactory.createEmptyBorder());
-        
-        CashOutTable.setFont(new Font("Roboto", Font.BOLD, 30));
-        CashOutTable.setRowHeight(40);
+
+        CashOutTable.setFont(new Font("Roboto", Font.BOLD, 28));
+        CashOutTable.setRowHeight(45);
         CashOutTable.setBackground(Color.decode("#f2f3f4"));
         CashOutTable.setPreferredScrollableViewportSize(new Dimension(300,200));
+        CashOutTable.getTableHeader().setReorderingAllowed(false);
+        CashOutTable.setEnabled(false);
 
         CashOutTableBasePanel.add(CashOutTableScrollPanel);
         

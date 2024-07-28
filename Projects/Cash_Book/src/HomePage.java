@@ -427,6 +427,14 @@ public class HomePage extends Thread {
         new Thread(this).start();
         Context_Heading.setText("CASH IN");
 
+        rightpanel.remove(this.Cash_In);
+        this.Cash_In = new CashInPanel();
+        rightpanel.add(this.Cash_In);
+
+        // rightpanel.remove(Cash_Out);
+        // rightpanel.remove(History);
+        // rightpanel.remove(HomeTable);
+
         Cash_In.setVisible(true);
         Cash_Out.setVisible(false);
         History.setVisible(false);
@@ -443,6 +451,14 @@ public class HomePage extends Thread {
 
         Context_Heading.setText("CASH OUT");
 
+        rightpanel.remove(this.Cash_Out);
+        this.Cash_Out = new CashOutPanel();
+        rightpanel.add(this.Cash_Out);
+
+        // rightpanel.remove(Cash_In);
+        // rightpanel.remove(History);
+        // rightpanel.remove(HomeTable);
+
         Cash_In.setVisible(false);
         Cash_Out.setVisible(true);
         History.setVisible(false);
@@ -458,6 +474,15 @@ public class HomePage extends Thread {
         new Thread(this).start();
         
         Context_Heading.setText("HISTORY");
+
+        rightpanel.remove(History);
+        this.History = new HistoryPanel();
+        rightpanel.add(this.History);
+
+        // rightpanel.remove(Cash_In);
+        // rightpanel.remove(Cash_Out);
+        // rightpanel.remove(HomeTable);
+
 
         Cash_In.setVisible(false);
         Cash_Out.setVisible(false);
@@ -479,9 +504,15 @@ public class HomePage extends Thread {
 
         VisibilityHome(true);
 
+        rightpanel.remove(CategoryPanel);
+
         rightpanel.remove(HomeTable);
         HomeTable = new HomePageTabel();
         rightpanel.add(HomeTable);
+
+        // rightpanel.remove(Cash_In);
+        // rightpanel.remove(Cash_Out);
+        // rightpanel.remove(History);
 
         Cash_In.setVisible(false);
         Cash_Out.setVisible(false);
@@ -489,7 +520,6 @@ public class HomePage extends Thread {
         HomeTable.setVisible(true);
 
         CategoryPanel.VisibilityCategoty(false);
-        CategoryPanel.setEnabled(false);
 
         // UpdateCashInTable();
     }
@@ -512,6 +542,14 @@ public class HomePage extends Thread {
         logout.setForeground(new Color(240, 240, 240));
 
         VisibilityHome(false);
+        Cash_In.setVisible(false);
+        Cash_Out.setVisible(false);
+        History.setVisible(false);
+        HomeTable.setVisible(false);
+
+        rightpanel.remove(CategoryPanel);
+        CategoryPanel = new Category();
+        rightpanel.add(CategoryPanel);
 
         CategoryPanel.setVisible(true);
         CategoryPanel.VisibilityCategoty(true);

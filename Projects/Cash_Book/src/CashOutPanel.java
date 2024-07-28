@@ -36,8 +36,12 @@ public class CashOutPanel extends JPanel implements ActionListener{
 
     JComboBox<String> OutCategoryValue = new JComboBox<>();
 
-    
+    JLabel OutAmountHeadingValue ;
+    JLabel BalanceHeadingValue;
+
     public CashOutPanel() {
+
+        DataForHomeTable function = new DataForHomeTable();
 
         // Defining Cash In
         setBounds(30, 460, 1440, 505);
@@ -69,9 +73,9 @@ public class CashOutPanel extends JPanel implements ActionListener{
 
         // Initilize components used in Heading Panel
         JLabel OutAmountHeading = new JLabel("EXPENSE - ");
-        JLabel OutAmountHeadingValue = new JLabel("0000");
+        OutAmountHeadingValue = new JLabel(String.valueOf(function.Expense));
         JLabel BalanceHeading = new JLabel("BALANCE - ");
-        JLabel BalanceHeadingValue = new JLabel("0000");
+        BalanceHeadingValue = new JLabel(String.valueOf(function.Balance));
 
 
         // Defining Heading Panel
@@ -210,6 +214,23 @@ public class CashOutPanel extends JPanel implements ActionListener{
                     }catch(SQLException exception){
                         System.err.println(exception);
                     }
+                    Query = "INSERT INTO history (CashType, Amount, Category, Date) VALUES ('Expense', ?,?,?)";
+                    try(Connection Connect = DriverManager.getConnection(URL, USER, PASSWORD);
+                        PreparedStatement Statemet = Connect.prepareCall(Query)){
+
+                            Statemet.setInt(1, OutAmount);
+                            Statemet.setString(2, OutCategory);
+                            Statemet.setString(3, Date);
+
+                        Statemet.executeUpdate();  
+                    }catch(SQLException exception){
+                        System.err.println(exception);
+                    }
+
+                    DataForHomeTable function = new DataForHomeTable();
+                    
+                    OutAmountHeadingValue.setText(String.valueOf(function.Expense));
+                    BalanceHeadingValue.setText(String.valueOf(function.Balance));
                 }
                 else{
                     new MessageBox("CASH OUT", "INVALID AMOUNT(MIN - RS.1)");
