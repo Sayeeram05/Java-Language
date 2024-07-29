@@ -239,7 +239,7 @@ public class HomePageTabel extends JPanel{
         CashInTable.setPreferredScrollableViewportSize(new Dimension(300,200));
         CashInTable.getTableHeader().setReorderingAllowed(false);
         CashInTable.setEnabled(false);
-
+        CashInTable.getTableHeader().setEnabled(false);
 
 
         CashInTableBasePanel.add(CashInTableScrollPanel);
@@ -270,6 +270,7 @@ public class HomePageTabel extends JPanel{
         CashOutTable.setPreferredScrollableViewportSize(new Dimension(300,200));
         CashOutTable.getTableHeader().setReorderingAllowed(false);
         CashOutTable.setEnabled(false);
+        CashOutTable.getTableHeader().setEnabled(false);
 
         CashOutTableBasePanel.add(CashOutTableScrollPanel);
         

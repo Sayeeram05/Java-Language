@@ -287,19 +287,19 @@ public class HomePage extends Thread {
         });
 
         // Defining AdminIcon
-        AdminIcon.setBounds(5, 5, 55, 55);
+        AdminIcon.setBounds(5, 5, 65, 65);
         AdminIcon.setIcon(new ImageIcon("lib\\images\\Rahul.jpg"));
 
         // Defining UserName
-        username.setFont(new Font("Roboto", Font.BOLD, 17)); // Modify fonts
+        username.setFont(new Font("Roboto", Font.BOLD, 20)); // Modify fonts
         username.setForeground(Color.BLACK); // Font color
-        username.setBounds(80, 12, 100 , 15);
+        username.setBounds(85, 15, 100 , 15);
 
         // Defining Admin
-        admin.setFont(new Font("Roboto", Font.BOLD, 20)); // Modify fonts
+        admin.setFont(new Font("Roboto", Font.BOLD, 25)); // Modify fonts
         admin.setForeground(Color.WHITE); // Font color
         admin.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, false));
-        admin.setBounds(80, 29, 180 , 28);
+        admin.setBounds(85, 35, 180 , 32);
         admin.setVerticalTextPosition(1);
 
         // Defining Home
