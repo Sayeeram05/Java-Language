@@ -172,8 +172,8 @@ public class HistoryPanel extends JPanel implements ActionListener{
 
     public void ApplyHistoryTable(){
         TableColumn column = HistoryTable.getColumnModel().getColumn(0);
-        column.setPreferredWidth(100);
-        column.setMaxWidth(100);
+        column.setPreferredWidth(200);
+        column.setMaxWidth(200);
 
         // Create a cell renderer to center text
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

@@ -554,8 +554,8 @@ public class HomePage extends Thread {
         CategoryPanel.setVisible(true);
         CategoryPanel.VisibilityCategoty(true);
 
-        CategoryPanel.CategoryDataPanel.setVisible(false);
-        CategoryPanel.Context_Heading.setText("CATEGORY");
+        // CategoryPanel.CategoryDataPanel.setVisible(false);
+        CategoryPanel.Context_Heading.setText("CASH IN - ADD");
 
     }
     public void Categoryentered(java.awt.event.MouseEvent e)

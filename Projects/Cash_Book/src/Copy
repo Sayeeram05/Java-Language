@@ -1,29 +1,5 @@
-String[] CashInColumnName = {"INCOME","CATEGORY","DATE"};
-        
-        CashInList = this.CashInAddData();
 
-        CashInData = CashInList.toArray(new String[0][0]);
 
-        CashInTable = new JTable(CashInData,CashInColumnName);
-
-        JTableHeader CashInHeader = CashInTable.getTableHeader();
-        CashInHeader.setDefaultRenderer(new TableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JLabel label = new JLabel(value.toString());
-                label.setFont(new Font("Roboto", Font.BOLD, 30)); // Set your desired font
-                label.setForeground(Color.decode("#ecf0f1")); // Set your desired font color
-                label.setHorizontalAlignment(SwingConstants.CENTER); // Center align the header text
-                label.setBackground(Color.decode("#2e86c1")); // Set your desired background color
-                label.setOpaque(true); // Necessary for background color to display
-                label.setBorder(BorderFactory.createRaisedBevelBorder());
-                return label;
-            }
-        });
-        JScrollPane CashInTableScrollPanel = new JScrollPane(CashInTable);
-
-        JPanel CashOutTabelHeadingPanel = new JPanel();
-        JLabel CashOutTableHeading = new JLabel("CASH OUT");
 
         
 
