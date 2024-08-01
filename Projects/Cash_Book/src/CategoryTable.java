@@ -102,6 +102,7 @@ public class CategoryTable extends JPanel implements ActionListener{
 
         TablePanel.setPreferredSize(new Dimension(1440, 415));
         TablePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        TablePanel.setBackground(Color.decode("#f2f3f4"));
 
 
 

@@ -1,13 +1,11 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Category extends JPanel implements ActionListener, Runnable{
+public class Category extends JPanel implements Runnable{
 
     //-----------------------------------------------G L O B A L----------------------------------------------//
     
@@ -288,25 +286,9 @@ public class Category extends JPanel implements ActionListener, Runnable{
         // CategoryDataPanel.setVisible(true);
     }
 
-    //--------------------------------------------A C T I O N L I S T E N E R-------------------------------------------//
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // if(e.getSource() == DataButton){
-        //     String ButtonName = Context_Heading.getText();
-        //     if(ButtonName.equals("CASH IN - ADD")){
-        //         System.out.println("CASH IN - ADD");
-        //     }
-        //     else if (ButtonName.equals("CASH IN - REMOVE")) {
-        //         System.out.println("CASH IN - REMOVE");
-        //     }
-        //     else if (ButtonName.equals("CASH OUT - ADD")) {
-        //         System.out.println("CASH OUT - ADD");
-        //     }else if (ButtonName.equals("CASH OUT - REMOVE")) {
-        //         System.out.println("CASH OUT - REMOVE");
-        //     }
-        // }
-    }
+    
+    
 
 
 

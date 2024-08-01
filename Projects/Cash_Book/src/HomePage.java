@@ -14,25 +14,26 @@ public class HomePage extends Thread {
 
     JLabel close = new JLabel(" X ");
     JFrame frame = new JFrame();
-    JLabel logout = new JLabel("Logout");
+    JLabel logout = new JLabel("LOGOUT");
     JPanel rightpanel = new JPanel();
     GradientPanel leftPanel = new GradientPanel(Color.decode("#004FF9"),Color.decode("#56CCF2"),0);
     CashInPanel Cash_In = new CashInPanel();
     CashOutPanel Cash_Out = new CashOutPanel();
     HistoryPanel History = new HistoryPanel();
-    JLabel Context_Heading = new JLabel("Home Table"); 
+    JLabel Context_Heading = new JLabel("HOME TABEL"); 
     HomePageTabel HomeTable = new HomePageTabel();
-    JLabel home = new JLabel("Home");
-    JLabel Category = new JLabel("Category");
+    JLabel home = new JLabel("HOME");
+    JLabel Category = new JLabel("CATEGORY");
     JPanel Button_Panel = new JPanel();
     GradientPanel Cash_In_Panel = new GradientPanel(Color.decode("#000000"), Color.decode("#004ff9"), 75);
     GradientPanel Cash_Out_Panel = new GradientPanel(Color.decode("#0c0014"), Color.decode("#0779E4"), 75);
     GradientPanel Transaction_Panel = new GradientPanel(Color.decode("#1A2980"), Color.decode("#26D0CE"), 75);
     JLabel Button_Panel_Title = new JLabel();
-
     Category CategoryPanel = new Category();
-
     Animation WhiteScreen = new Animation();
+    JLabel DeleteLable = new JLabel("DELETE");
+    DeletePanel Delete = new DeletePanel();
+
 
     
 
@@ -135,18 +136,19 @@ public class HomePage extends Thread {
         //----------------------------------------------B U T T O N P A N E L---------------------------------------------//
 
         // Button Panel Title
-        Button_Panel_Title.setText("Home");
+        Button_Panel_Title.setText("HOME");
         Button_Panel_Title.setFont(new Font("Roboto", Font.BOLD, 35));
         Button_Panel_Title.setForeground(new Color(6, 143, 255));
         Button_Panel_Title.setBounds(30, 70, 200, 60);
 
         // Button Panel
         Button_Panel.setBounds(20, 110, 1462, 250);
-        Button_Panel.setBackground(new Color(206, 230, 243));// new Color(240, 240, 240)
+        // Button_Panel.setBackground(new Color(206, 230, 243));// new Color(240, 240, 240)
         Button_Panel.setLayout(null);
+        Button_Panel.setOpaque(false);
 
         // Cash In
-        Cash_In_Panel.setBounds(10, 30, 400, 200);
+        Cash_In_Panel.setBounds(10, 30, 400, 200);;//
         Cash_In_Panel.setLayout(null);
         Cash_In_icon.setIcon(new ImageIcon("lib\\images\\PlusIcon.png"));
         Cash_In_icon.setBounds(245, 50, 100, 100);
@@ -162,7 +164,8 @@ public class HomePage extends Thread {
             public void mouseClicked(java.awt.event.MouseEvent e)
             {
                 CashInclicked(e);
-            }
+            }         
+            
         });
 
 
@@ -186,6 +189,7 @@ public class HomePage extends Thread {
             {
                 CashOutclicked(e);
             }
+
         });
 
         Cash_Out_Panel.add(Cash_Out_icon);
@@ -209,6 +213,7 @@ public class HomePage extends Thread {
             {
                 Historyclicked(e);
             }
+
         });
 
 
@@ -223,7 +228,11 @@ public class HomePage extends Thread {
         // Content Panel Heading
         Context_Heading.setFont(new Font("Roboto", Font.BOLD, 35));
         Context_Heading.setForeground(new Color(6, 143, 255));
-        Context_Heading.setBounds(30, 400, 200, 40);
+        Context_Heading.setBounds(30, 400, 500, 40);
+
+
+        
+        
         
 
         // Adding defined components to the RightPanel
@@ -238,6 +247,9 @@ public class HomePage extends Thread {
         rightpanel.add(Cash_In);
         rightpanel.add(Cash_Out);
         rightpanel.add(History);
+        rightpanel.add(Delete);
+
+        
         
 
 
@@ -360,6 +372,36 @@ public class HomePage extends Thread {
             }
         });
 
+
+        // Defining Delete
+        DeleteLable.setIcon(new ImageIcon("lib\\images\\Remove.png"));
+        DeleteLable.setFont(new Font("Roboto", Font.BOLD, 25));
+        DeleteLable.setBounds(10, 257, 280,50);
+        DeleteLable.setForeground(new Color(240, 240, 240));
+        DeleteLable.setHorizontalTextPosition(JLabel.RIGHT);
+        DeleteLable.setVerticalTextPosition(JLabel.CENTER);
+        DeleteLable.setIconTextGap(15);
+        DeleteLable.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                Deleteclicked(e);
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e)
+            {
+                Deleteentered(e);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e)
+            {
+                Deleteexited(e);
+            }
+        });
+
         
         // Adding defined components to the Left Panel
         leftPanel.add(logout);
@@ -368,7 +410,7 @@ public class HomePage extends Thread {
         leftPanel.add(admin);
         leftPanel.add(home);
         leftPanel.add(Category);
-
+        leftPanel.add(DeleteLable);
 
         // Adding defined components to the Frame
         frame.add(rightpanel);
@@ -439,9 +481,14 @@ public class HomePage extends Thread {
         Cash_Out.setVisible(false);
         History.setVisible(false);
         HomeTable.setVisible(false);
+        Delete.setVisible(false);
 
         Cash_In.CashInCombobox();
+
+        
+
     }
+
 
 
     // Cash Out
@@ -463,9 +510,13 @@ public class HomePage extends Thread {
         Cash_Out.setVisible(true);
         History.setVisible(false);
         HomeTable.setVisible(false);
+        Delete.setVisible(false);
 
         Cash_Out.CashOutCombobox();
     }
+
+
+    
 
 
     // History
@@ -488,7 +539,10 @@ public class HomePage extends Thread {
         Cash_Out.setVisible(false);
         History.setVisible(true);
         HomeTable.setVisible(false);
+        Delete.setVisible(false);
     }
+
+
 
 
     // Home
@@ -496,11 +550,12 @@ public class HomePage extends Thread {
     {
         new Thread(this).start();
 
-        Context_Heading.setText("Home Table");
+        Context_Heading.setText("HOME TABLE");
 
         home.setForeground(Color.BLACK);
         Category.setForeground(new Color(240, 240, 240));
         logout.setForeground(new Color(240, 240, 240));
+        DeleteLable.setForeground(new Color(240, 240, 240));
 
         VisibilityHome(true);
 
@@ -518,7 +573,11 @@ public class HomePage extends Thread {
         Cash_Out.setVisible(false);
         History.setVisible(false);
         HomeTable.setVisible(true);
+        Delete.setVisible(false);
 
+        HomeTable.setBounds(30, 460, 1440, 510);
+
+        CategoryPanel.setVisible(false);
         CategoryPanel.VisibilityCategoty(false);
 
         // UpdateCashInTable();
@@ -540,12 +599,14 @@ public class HomePage extends Thread {
         home.setForeground(new Color(240, 240, 240));
         Category.setForeground(Color.BLACK);
         logout.setForeground(new Color(240, 240, 240));
+        DeleteLable.setForeground(new Color(240, 240, 240));
 
         VisibilityHome(false);
         Cash_In.setVisible(false);
         Cash_Out.setVisible(false);
         History.setVisible(false);
         HomeTable.setVisible(false);
+        Delete.setVisible(false);
 
         rightpanel.remove(CategoryPanel);
         CategoryPanel = new Category();
@@ -565,6 +626,43 @@ public class HomePage extends Thread {
     public void Categoryexited(java.awt.event.MouseEvent e)
     {
        Category.setBorder(null);
+    }
+
+    // Category
+    public void Deleteclicked(java.awt.event.MouseEvent e)
+    {
+        new Thread(this).start();
+        
+        home.setForeground(new Color(240, 240, 240));
+        Category.setForeground(new Color(240, 240, 240));
+        logout.setForeground(new Color(240, 240, 240));
+        DeleteLable.setForeground(Color.BLACK);
+
+        VisibilityHome(false);
+        Cash_In.setVisible(false);
+        Cash_Out.setVisible(false);
+        History.setVisible(false);
+        HomeTable.setVisible(false);
+        Delete.setVisible(true);
+
+        // rightpanel.remove(CategoryPanel);
+        // CategoryPanel = new Category();
+        // rightpanel.add(CategoryPanel);
+
+        CategoryPanel.setVisible(false);
+        CategoryPanel.VisibilityCategoty(false);
+
+        // CategoryPanel.CategoryDataPanel.setVisible(false);
+        Delete.Table.DataValue.setText("");
+
+    }
+    public void Deleteentered(java.awt.event.MouseEvent e)
+    {
+        DeleteLable.setBorder(BorderFactory.createRaisedBevelBorder());
+    }
+    public void Deleteexited(java.awt.event.MouseEvent e)
+    {
+        DeleteLable.setBorder(null);
     }
 
 
