@@ -34,6 +34,8 @@ public class HomePage extends Thread {
     JLabel DeleteLable = new JLabel("DELETE");
     DeletePanel Delete = new DeletePanel();
 
+    JLabel Print = new JLabel(new ImageIcon("lib\\images\\Print.png"));
+
 
     
 
@@ -233,14 +235,38 @@ public class HomePage extends Thread {
 
         
         
-        
+        Print.setBounds(1415,390,55,65);
+        Print.setBorder(BorderFactory.createRaisedBevelBorder());
+        Print.setBackground(Color.decode("#909497"));
+        Print.setOpaque(true);
+        Print.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e)
+            {
+                Printclicked(e);
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e)
+            {
+                Printentered(e);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e)
+            {
+                Printexited(e);
+            }
+        });
+
 
         // Adding defined components to the RightPanel
         rightpanel.add(TitleBar);
         rightpanel.add(Button_Panel_Title);
         rightpanel.add(Button_Panel);
         rightpanel.add(Context_Heading);
-        // rightpanel.add(Content_Panel);
+        // 
         
         rightpanel.add(CategoryPanel);
         rightpanel.add(HomeTable);
@@ -248,6 +274,9 @@ public class HomePage extends Thread {
         rightpanel.add(Cash_Out);
         rightpanel.add(History);
         rightpanel.add(Delete);
+
+        rightpanel.add(Print);
+
 
         
         
@@ -664,6 +693,25 @@ public class HomePage extends Thread {
     {
         DeleteLable.setBorder(null);
     }
+
+
+    // Home
+    public void Printclicked(java.awt.event.MouseEvent e)
+    {
+
+        // UpdateCashInTable();
+    }
+    public void Printentered(java.awt.event.MouseEvent e)
+    {
+        Print.setBorder(BorderFactory.createLoweredBevelBorder());
+        Print.setBackground(Color.decode("#d7dbdd"));
+    }
+    public void Printexited(java.awt.event.MouseEvent e)
+    {
+        Print.setBorder(BorderFactory.createRaisedBevelBorder());
+        Print.setBackground(Color.decode("#909497"));
+    }
+
 
 
     //--------------------------------------------F U  N C T I O N S-------------------------------------------//

@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+
 public class MessageBox implements ActionListener{
     JFrame message_frame = new JFrame();
     GradientButton messagebox_ok = new GradientButton(Color.decode("#004FF9"),Color.decode("#56CCF2"));
@@ -67,7 +68,7 @@ public class MessageBox implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e)
     {
-
+        
         if(e.getSource()==messagebox_ok)
         {
             message_frame.dispose();
