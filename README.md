@@ -14,7 +14,7 @@ The Projects folder houses more comprehensive Java projects. These projects are 
 Feel free to explore the contents of each folder:
 
 - **Programs**: Review and run the Java programs to understand basic to advanced concepts in Java programming.
-- **Projects**: Explore these more extensive projects to gain hands-on experience in building real-world applications using Java.
+- **Projects**: Explore these more extensive projects to gain hands-on experience in building real-world applications using Java Program.
 
 ---
 
