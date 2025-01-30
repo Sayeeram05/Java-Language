@@ -392,6 +392,7 @@ public class LoginPage implements ActionListener{
         {
             this.frame.dispose();
             message_frame.dispose();
+            new HomePage();
         }
     }
     

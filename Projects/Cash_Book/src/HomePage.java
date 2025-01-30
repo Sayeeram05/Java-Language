@@ -288,7 +288,7 @@ public class HomePage extends Thread {
         // User Icon And Name
         ImageAvatar AdminIcon = new ImageAvatar();
         JLabel username = new JLabel("UserName");
-        JLabel admin = new JLabel("Rahul",JLabel.CENTER);
+        JLabel admin = new JLabel("RAHUL",JLabel.CENTER);
         
 
         // Defining Left Panel
