@@ -43,15 +43,15 @@
 
 ## 📸 Screenshots 
 
-![Login Page](<lib\ReadmeImages\Login-1.png>)
+<img src="lib\ReadmeImages\Login-1.png"/>
 
-![Login Verification](<lib\ReadmeImages\Login-2.png>)
+<img src="lib\ReadmeImages\Login-2.png"/>
 
-![Home Page](<lib\ReadmeImages\Home.png>)
+<img src="lib\ReadmeImages\Home.png"/>
 
-![Category Page](<lib\ReadmeImages\Category.png>)
+<img src="lib\ReadmeImages\Category.png"/>
 
-![Delete Page](<lib\ReadmeImages\Delete.png>)
+<img src="lib\ReadmeImages\Delete.png"/>
 
 ---
 
